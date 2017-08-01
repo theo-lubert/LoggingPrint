@@ -22,7 +22,11 @@ public func loggingPrint<T>(_ object: @autoclosure () -> T, _ file: String = #fi
         let fileURL = NSURL(string: file)?.lastPathComponent ?? "Unknown file"
         let queue = Thread.isMainThread ? "UI" : "BG"
         
-        print("<\(queue)> \(fileURL) \(function)[\(line)]: " + String(reflecting: value))
+		if value is String {
+			print("<\(queue)> \(fileURL) \(function)[\(line)]: \(value)")
+		} else {
+			print("<\(queue)> \(fileURL) \(function)[\(line)]: " + String(reflecting: value))
+		}
     #endif
 }
 
